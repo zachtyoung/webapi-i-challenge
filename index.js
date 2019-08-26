@@ -64,7 +64,6 @@ server.delete('/users/:id', (req,res)=>{
 
 
 
-
 server.put('/users/:id', (req, res) =>{
     const {id} = req.params;
     const changes = req.body;
