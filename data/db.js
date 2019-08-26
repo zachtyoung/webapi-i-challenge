@@ -26,14 +26,30 @@ function insert(user) {
     .then(ids => ({ id: ids[0] }));
 }
 
-function update(id, user) {
-  return db('users')
-    .where('id', Number(id))
-    .update(user);
-}
+// function update(id, user) {
+//   return db('users')
+//     .where('id', Number(id))
+//     .update(user);
+// }
 
-function remove(id) {
-  return db('users')
-    .where('id', Number(id))
+// function remove(id) {
+//   return db('users')
+//     .where('id', Number(id))
+//     .del();
+// }
+async function remove(id) {
+  const removed = await findById(id);
+  await db('users')
+    .where({ id })
     .del();
+
+  return removed;
+} å
+
+async function update(id, changes) {
+  await db('users')
+    .where({ id })
+    .update(changes);
+
+  return findById(id);
 }
